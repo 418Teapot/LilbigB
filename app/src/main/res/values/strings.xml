@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">LilbigB</string>
+    <string name="title_activity_hej">Hej Activity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sig_hej">"Hej "</string>
+    <string name="title_activity_login">lil\'BIGbro</string>
+    <string name="title_activity_main_screen">lilBIGbro</string>
+    <string name="title_activity_map">Kort</string>
 </resources>
