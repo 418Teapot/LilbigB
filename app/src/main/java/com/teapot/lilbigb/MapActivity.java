@@ -5,6 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 
 import android.location.LocationManager;
@@ -21,6 +28,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -35,6 +44,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
     private LocationRequest mLocationRequest;
     private Marker myMarker;
 
+    private Bitmap userBitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +57,12 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
             buildAlertMessageNoGps();
         }
 
+        userBitmap = (Bitmap) getIntent().getParcelableExtra("UserBitmap");
 
         // vi instantierer kortet og sætter typen til satellit
         // kortet er et view af typen fragment med id map
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
                 .getMap();
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
         // build client metoden . bruges til at indstille og forbinde til google api!
         // se metoden for mere
@@ -87,14 +97,42 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
 
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
+        Bitmap userBitmapScaled = Bitmap.createScaledBitmap(userBitmap, 117, 117, false);
+        SharedPreferences prefs = getSharedPreferences(loginActivity.PREFS_NAME, MODE_PRIVATE);
+        String loggedInName = prefs.getString("loggedInName", null);
+
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inMutable = true;
+        //modify canvas
+        Bitmap navBG = BitmapFactory.decodeResource(getResources(), R.drawable.lilbigbro_marker_bg, opts);
+
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        Bitmap bmp = Bitmap.createBitmap(175, 204, conf);
+        Canvas canvas1 = new Canvas(bmp);
+
+        System.out.println("APP img dimensions: "+userBitmapScaled.getWidth()+", "+userBitmapScaled.getHeight());
+
+        // paint defines the text color,
+        // stroke width, size
+        Paint color = new Paint();
+        color.setTextSize(35);
+        color.setColor(Color.WHITE);
+
+        Bitmap navBGScaled = Bitmap.createScaledBitmap(navBG, 175,204, false);
+
+        canvas1.drawBitmap(navBGScaled, 0, 0, color);
+        canvas1.drawBitmap(userBitmapScaled, 30, 15, color);
+        canvas1.drawText(loggedInName, 5, 170, color);
 
 
         if(mLastLocation != null){
             myPos = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             myMarker = map.addMarker(new MarkerOptions()
                     .position(myPos)
+                    .icon(BitmapDescriptorFactory.fromBitmap(bmp))
                             //.icon((BitmapDescriptorFactory.fromResource(R.drawable.eye_icon)))
-                    .title("Min sidst kendte position"));
+                    .title("Min sidst kendte position")
+                    .anchor(0.5f, 1));
         } else { // skulle det ske at sidst kente placering ikke er kendt eller kan findes (null)
             myPos = new LatLng(56.1572, 10.2107); // sæt længde/bredde grad til Aarhus
         }

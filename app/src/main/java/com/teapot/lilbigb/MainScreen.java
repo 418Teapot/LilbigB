@@ -1,12 +1,36 @@
 package com.teapot.lilbigb;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /*
 MainScreen er som navnet antyder hovedskærmen, der præsenterer brugeren for p.t. 3 valg
@@ -17,17 +41,85 @@ Log ud - som lukker app'en og fjerner det gemte navn.
 
 public class MainScreen extends Activity {
 
+    public Bitmap userBitmap;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
         // hent navnet fra shared prefs!
         SharedPreferences prefs = getSharedPreferences(loginActivity.PREFS_NAME, MODE_PRIVATE);
         String loggedInName = prefs.getString("loggedInName", null);
+        String fbUserID = prefs.getString("FBUserID", null);
 
-        // set navnet som titel :)
-        getActionBar().setTitle("lil'BIGbro > "+loggedInName);
+        // setup actionbar
+        ActionBar mActionBar = getActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+
+        View mCustomView = mInflater.inflate(R.layout.menu_with_image_view, null);
+        TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
+        mTitleTextView.setText(" " + loggedInName);
+
+        final ImageView userImage = (ImageView) mCustomView.findViewById(R.id.userImage);
+
+        if(fbUserID != null) {
+            /* make the API call */
+
+            Bundle params = new Bundle();
+            params.putBoolean("redirect", false);
+
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "me/picture",
+                    params,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+
+                            try {
+                                String picUrlString = (String) response.getJSONObject().getJSONObject("data").get("url");
+                                System.out.println(picUrlString);
+
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+
+                                URL url = new URL(picUrlString);
+                                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                                userBitmap = bmp;
+                                if(userImage != null) {
+                                    userImage.setImageBitmap(bmp);
+                                } else {
+                                    System.out.println("APP: User image is NULL!");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    }
+            ).executeAsync();
+        }
+/*
+        if(userImage != null){
+            String imgUrl = "http://graph.facebook.com/"+fbUserID+"/picture";
+            userImage.setTag(imgUrl);
+            new DownloadImageTask().execute(userImage);
+        }
+*/
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
+
 
         // knapper
         Button kortBtn = (Button) findViewById(R.id.kortBtn);
@@ -40,6 +132,7 @@ public class MainScreen extends Activity {
                 public void onClick(View v) {
                     // start kort aktiviteten
                     Intent mapsActivity = new Intent(getApplicationContext(), MapActivity.class);
+                    mapsActivity.putExtra("UserBitmap", userBitmap);
                     startActivity(mapsActivity);
                 }
             });
@@ -58,6 +151,9 @@ public class MainScreen extends Activity {
                     SharedPreferences.Editor prefsEditor = getSharedPreferences(loginActivity.PREFS_NAME, MODE_PRIVATE).edit();
                     prefsEditor.remove("loggedInName");
                     prefsEditor.commit();
+
+                    LoginManager.getInstance().logOut();
+
                     Toast toast = Toast.makeText(getApplicationContext(), "Brugeren er logget ud og app'en lukkes!", Toast.LENGTH_LONG);
                     toast.show();
                     finish();

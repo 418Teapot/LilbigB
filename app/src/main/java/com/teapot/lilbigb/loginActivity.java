@@ -3,13 +3,31 @@ package com.teapot.lilbigb;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class loginActivity extends Activity {
@@ -26,15 +44,78 @@ public class loginActivity extends Activity {
     private SharedPreferences.Editor prefsEditor;
     private SharedPreferences prefs;
     public static final String PREFS_NAME = "lilBIGbroPrefs";
-
-
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_login);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+        System.out.println("APP ID: " + FacebookSdk.getApplicationSignature(getApplicationContext()));
 
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        setContentView(R.layout.activity_login);
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("user_friends");
+
+        // Other app specific specialization
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+
+                System.out.println("APP User AccesToken: "+loginResult.getAccessToken());
+                System.out.println("APP: " + loginResult);
+                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                        System.out.println("APP Graph Response Obj: "+jsonObject.toString());
+
+                        Intent mainIntent = new Intent(getApplicationContext(), MainScreen.class);
+                        prefsEditor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+                        try {
+                            prefsEditor.putString("loggedInName", jsonObject.getString("first_name").toString());
+                            prefsEditor.putString("FBUserID", jsonObject.getString("id").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        prefsEditor.commit();
+                        startActivity(mainIntent);
+                        finish();
+
+                    }
+                });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,link");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+
+
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                System.out.println("APP: Brugeren trykkede cancel!");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                System.out.println("APP: FB FEJL!");
+                exception.printStackTrace();
+            }
+        });
+
         String loggedInName = prefs.getString("loggedInName", null);
         if (loggedInName != null) {
             /*
@@ -42,9 +123,6 @@ public class loginActivity extends Activity {
             Vi bygger en ny intention (naming android! WOW!) og går videre til main screen!
              */
             Intent mainIntent = new Intent(getApplicationContext(), MainScreen.class);
-            /* vi putter en ekstra streng værdi i det nye intent - så vi kan bruge navnet!
-            kunne også sagtens implementeres til altid at hente fra sharedprefs! */
-            mainIntent.putExtra("loggedInName", loggedInName);
             startActivity(mainIntent);
             // vi afslutter den nuværende aktivitet efter vi har startet den nye!
             finish();
@@ -53,15 +131,17 @@ public class loginActivity extends Activity {
             // håndter login!
 
             // vi finder vores "views" (knapper og tekstfelter - igen wow naming android :) )
-            Button loginButton = (Button) findViewById(R.id.loginButton);
+            Button noFaceloginButton = (Button) findViewById(R.id.loginButton);
             final EditText nameText = (EditText) findViewById(R.id.navnText);
 
             // hvis elementerne vi skal bruge findes!
-            if(loginButton != null && nameText != null){
-                loginButton.setOnClickListener(new View.OnClickListener() {
+            if(noFaceloginButton  != null && nameText != null){
+                noFaceloginButton .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
+                        dispatchTakePictureIntent();
+/*
                         // vi gemmer vores login navn i shared prefs!
                         prefsEditor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
                         prefsEditor.putString("loggedInName", nameText.getText().toString());
@@ -69,9 +149,8 @@ public class loginActivity extends Activity {
 
                         // same as above ;)
                         Intent mainIntent = new Intent(getApplicationContext(), MainScreen.class);
-                        mainIntent.putExtra("loggedInName", nameText.getText().toString());
                         startActivity(mainIntent);
-                        finish();
+                        finish();*/
                     }
                 });
             }
@@ -79,6 +158,31 @@ public class loginActivity extends Activity {
         }
 
 
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ImageView mImageView = (ImageView) findViewById(R.id.lilbigbro_logo);
+            if(mImageView != null)
+                mImageView.setImageBitmap(imageBitmap);
+
+        }
+    }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }
