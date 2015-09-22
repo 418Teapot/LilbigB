@@ -73,7 +73,7 @@ public class MainScreen extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         // hent navnet fra shared prefs!
         SharedPreferences prefs = getSharedPreferences(loginActivity.PREFS_NAME, MODE_PRIVATE);
-        String loggedInName = prefs.getString("loggedInName", null);
+        final String loggedInName = prefs.getString("loggedInName", null);
         String fbUserID = prefs.getString("FBUserID", null);
         final String userName = loggedInName;
         // setup actionbar
@@ -144,7 +144,7 @@ public class MainScreen extends Activity {
                                             conn.setDoOutput(true);
 
                                             List<NameValuePair> params = new ArrayList<NameValuePair>();
-                                            params.add(new BasicNameValuePair("user", userName));
+                                            params.add(new BasicNameValuePair("username", userName));
                                             params.add(new BasicNameValuePair("image", encodedImage));
 
                                             OutputStream os = conn.getOutputStream();
@@ -166,7 +166,49 @@ public class MainScreen extends Activity {
                                                     in.close();
                                                     conn.disconnect();
 
+                                                } else {
+
+                                                    return "ERROR "+conn.getResponseCode();
                                                 }
+
+                                             // since all of this is good post og registrer dig selv på serveren!
+                                                URL regUrl = new URL("http://46.101.251.99/lilbigbro/register");
+                                                conn = (HttpURLConnection) regUrl.openConnection();
+                                                conn.setReadTimeout(10000);
+                                                conn.setConnectTimeout(15000);
+                                                conn.setRequestMethod("POST");
+                                                conn.setDoOutput(true);
+                                                conn.setDoInput(true);
+
+                                                params = new ArrayList<NameValuePair>();
+                                                params.add(new BasicNameValuePair("username", userName));
+                                                params.add(new BasicNameValuePair("imageurl", imageFilePath));
+
+                                                os = conn.getOutputStream();
+                                                writer = new BufferedWriter(
+                                                        new OutputStreamWriter(os, "UTF-8"));
+                                                writer.write(getQuery(params));
+                                                writer.flush();
+                                                writer.close();
+                                                os.close();
+
+                                                conn.connect();
+
+                                                String ret = "";
+                                                if(conn.getResponseCode() == 200) {
+                                                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                                                            conn.getInputStream()));
+                                                    String inputLine;
+                                                    while ((inputLine = in.readLine()) != null)
+                                                        System.out.println(inputLine);
+                                                        ret = inputLine;
+                                                    in.close();
+                                                    conn.disconnect();
+
+                                                }
+
+                                                return ret;
+
                                             } catch (MalformedURLException e) {
                                                 e.printStackTrace();
                                             } catch (ProtocolException e) {
@@ -267,6 +309,83 @@ public class MainScreen extends Activity {
                     prefsEditor.commit();
 
                     LoginManager.getInstance().logOut();
+
+                    // slet brugeren fra serveren
+                    new AsyncTask<String, String, String>() {
+
+
+                        @Override
+                        protected String doInBackground(String... params) {
+                            String ret = "ERROR";
+                            try {
+                                URL delURL = new URL("http://46.101.251.99/lilbigbro/removeUser");
+                                HttpURLConnection conn = (HttpURLConnection) delURL.openConnection();
+                                conn.setRequestMethod("POST");
+                                conn.setDoInput(true);
+
+                                List<NameValuePair> paramsLogout = new ArrayList<NameValuePair>();
+                                paramsLogout.add(new BasicNameValuePair("username", loggedInName));
+
+                                OutputStream os = conn.getOutputStream();
+                                BufferedWriter writer = new BufferedWriter(
+                                        new OutputStreamWriter(os, "UTF-8"));
+                                writer.write(getQuery(paramsLogout));
+                                writer.flush();
+                                writer.close();
+                                os.close();
+
+                                conn.connect();
+
+                                if(conn.getResponseCode() == 200) {
+                                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                                            conn.getInputStream()));
+                                    String inputLine;
+                                    while ((inputLine = in.readLine()) != null)
+                                        System.out.println(inputLine);
+                                    ret = inputLine;
+                                    in.close();
+                                    conn.disconnect();
+
+                                } else {
+                                    ret = "ERROR "+conn.getResponseCode();
+                                }
+
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            return ret;
+                        }
+
+                        @Override
+                        protected void onPostExecute(String result) {
+                            System.out.println("RES: "+result);
+                        }
+
+                        private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
+                        {
+                            StringBuilder result = new StringBuilder();
+                            boolean first = true;
+
+                            for (NameValuePair pair : params)
+                            {
+                                if (first)
+                                    first = false;
+                                else
+                                    result.append("&");
+
+                                result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+                                result.append("=");
+                                result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+                            }
+
+                            return result.toString();
+                        }
+
+                    }.execute(loggedInName);
+
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Brugeren er logget ud og app'en lukkes!", Toast.LENGTH_LONG);
                     toast.show();

@@ -59,16 +59,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MapActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MapActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MapActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="124" column="45" selection-start-line="124" selection-start-column="45" selection-end-line="124" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.6302003">
+              <caret line="235" column="60" selection-start-line="235" selection-start-column="60" selection-end-line="235" selection-end-column="60" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#7993#8020#0" expanded="false" />
-                <element signature="e#8051#8078#0" expanded="false" />
-                <element signature="e#8403#8430#0" expanded="false" />
+                <element signature="e#8098#8430#0" expanded="true" />
+                <element signature="e#8178#8205#0" expanded="true" />
+                <element signature="e#8236#8263#0" expanded="true" />
+                <element signature="e#8429#8430#0" expanded="true" />
+                <element signature="e#8478#8712#0" expanded="true" />
+                <element signature="e#8588#8615#0" expanded="true" />
+                <element signature="e#8711#8712#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,41 +87,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.0">
-              <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainScreen.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MainScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3990755">
-              <caret line="168" column="49" selection-start-line="168" selection-start-column="49" selection-end-line="168" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="235" column="77" selection-start-line="235" selection-start-column="77" selection-end-line="235" selection-end-column="77" />
               <folding>
-                <element signature="e#3462#10481#0" expanded="true" />
-                <element signature="e#6117#6132#0" expanded="true" />
-                <element signature="e#10480#10481#0" expanded="true" />
-                <element signature="e#11175#11569#0" expanded="true" />
-                <element signature="e#11568#11569#0" expanded="true" />
-                <element signature="e#11616#11921#0" expanded="true" />
-                <element signature="e#11920#11921#0" expanded="true" />
-                <element signature="e#11966#12584#0" expanded="true" />
-                <element signature="e#12583#12584#0" expanded="true" />
+                <element signature="e#3468#13158#0" expanded="true" />
+                <element signature="e#6123#6138#0" expanded="true" />
+                <element signature="e#13157#13158#0" expanded="true" />
+                <element signature="e#13852#14246#0" expanded="true" />
+                <element signature="e#14245#14246#0" expanded="true" />
+                <element signature="e#14293#14598#0" expanded="true" />
+                <element signature="e#14597#14598#0" expanded="true" />
+                <element signature="e#14643#18777#0" expanded="true" />
+                <element signature="e#15737#15752#0" expanded="true" />
+                <element signature="e#18776#18777#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdatePositionTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/UpdatePositionTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+              <folding>
+                <element signature="e#1153#1168#0" expanded="true" />
+                <element signature="e#2010#2011#0" expanded="true" />
+                <element signature="e#2060#2061#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,10 +126,9 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/DownloadImageTask.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
-                <element signature="e#689#690#0" expanded="false" />
-                <element signature="e#737#738#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -172,7 +169,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1744,9 +1743,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/LoadFacebookUserPicture.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/LoadFacebookUserPicture.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/DownloadImageTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MapActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MainScreen.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/UpdatePositionTask.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MapActivity.java" />
       </list>
     </option>
   </component>
@@ -2096,13 +2096,13 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29123172" sideWeight="0.2962963" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32776618" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985386" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32776618" sideWeight="0.7164179" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985386" sideWeight="0.49806523" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29123172" sideWeight="0.49806523" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29123172" sideWeight="0.7037037" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2642344" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -2136,18 +2136,12 @@
     <option name="LAST_COMMIT_MESSAGE" value="Hej eksempel i android - meget simpelt! Skift imellem activities med intents og lign. Step by step... uuh baby!" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/menu_with_image_view.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2168,7 +2162,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2188,10 +2184,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="101" column="23" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7993#8020#0" expanded="false" />
-            <element signature="e#8051#8078#0" expanded="false" />
-            <element signature="e#8403#8430#0" expanded="false" />
+            <element signature="e#8098#8430#0" expanded="true" />
+            <element signature="e#8178#8205#0" expanded="true" />
+            <element signature="e#8236#8263#0" expanded="true" />
+            <element signature="e#8429#8430#0" expanded="true" />
+            <element signature="e#8478#8712#0" expanded="true" />
+            <element signature="e#8588#8615#0" expanded="true" />
+            <element signature="e#8711#8712#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2231,15 +2230,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="15" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
           <folding>
-            <element signature="e#3462#10481#0" expanded="true" />
-            <element signature="e#6117#6132#0" expanded="true" />
-            <element signature="e#10480#10481#0" expanded="true" />
-            <element signature="e#11175#11569#0" expanded="true" />
-            <element signature="e#11568#11569#0" expanded="true" />
-            <element signature="e#11616#11921#0" expanded="true" />
-            <element signature="e#11920#11921#0" expanded="true" />
-            <element signature="e#11966#12584#0" expanded="true" />
-            <element signature="e#12583#12584#0" expanded="true" />
+            <element signature="e#3468#13158#0" expanded="true" />
+            <element signature="e#6123#6138#0" expanded="true" />
+            <element signature="e#13157#13158#0" expanded="true" />
+            <element signature="e#13852#14246#0" expanded="true" />
+            <element signature="e#14245#14246#0" expanded="true" />
+            <element signature="e#14293#14598#0" expanded="true" />
+            <element signature="e#14597#14598#0" expanded="true" />
+            <element signature="e#14643#18777#0" expanded="true" />
+            <element signature="e#15737#15752#0" expanded="true" />
+            <element signature="e#18776#18777#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2248,7 +2248,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2257,10 +2259,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="10" selection-start-line="114" selection-start-column="10" selection-end-line="114" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7993#8020#0" expanded="false" />
-            <element signature="e#8051#8078#0" expanded="false" />
-            <element signature="e#8403#8430#0" expanded="false" />
+            <element signature="e#8098#8430#0" expanded="true" />
+            <element signature="e#8178#8205#0" expanded="true" />
+            <element signature="e#8236#8263#0" expanded="true" />
+            <element signature="e#8429#8430#0" expanded="true" />
+            <element signature="e#8478#8712#0" expanded="true" />
+            <element signature="e#8588#8615#0" expanded="true" />
+            <element signature="e#8711#8712#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2300,15 +2305,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding>
-            <element signature="e#3462#10481#0" expanded="true" />
-            <element signature="e#6117#6132#0" expanded="true" />
-            <element signature="e#10480#10481#0" expanded="true" />
-            <element signature="e#11175#11569#0" expanded="true" />
-            <element signature="e#11568#11569#0" expanded="true" />
-            <element signature="e#11616#11921#0" expanded="true" />
-            <element signature="e#11920#11921#0" expanded="true" />
-            <element signature="e#11966#12584#0" expanded="true" />
-            <element signature="e#12583#12584#0" expanded="true" />
+            <element signature="e#3468#13158#0" expanded="true" />
+            <element signature="e#6123#6138#0" expanded="true" />
+            <element signature="e#13157#13158#0" expanded="true" />
+            <element signature="e#13852#14246#0" expanded="true" />
+            <element signature="e#14245#14246#0" expanded="true" />
+            <element signature="e#14293#14598#0" expanded="true" />
+            <element signature="e#14597#14598#0" expanded="true" />
+            <element signature="e#14643#18777#0" expanded="true" />
+            <element signature="e#15737#15752#0" expanded="true" />
+            <element signature="e#18776#18777#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2328,7 +2334,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2348,10 +2356,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="10" selection-start-line="114" selection-start-column="10" selection-end-line="114" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7993#8020#0" expanded="false" />
-            <element signature="e#8051#8078#0" expanded="false" />
-            <element signature="e#8403#8430#0" expanded="false" />
+            <element signature="e#8098#8430#0" expanded="true" />
+            <element signature="e#8178#8205#0" expanded="true" />
+            <element signature="e#8236#8263#0" expanded="true" />
+            <element signature="e#8429#8430#0" expanded="true" />
+            <element signature="e#8478#8712#0" expanded="true" />
+            <element signature="e#8588#8615#0" expanded="true" />
+            <element signature="e#8711#8712#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2391,15 +2402,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding>
-            <element signature="e#3462#10481#0" expanded="true" />
-            <element signature="e#6117#6132#0" expanded="true" />
-            <element signature="e#10480#10481#0" expanded="true" />
-            <element signature="e#11175#11569#0" expanded="true" />
-            <element signature="e#11568#11569#0" expanded="true" />
-            <element signature="e#11616#11921#0" expanded="true" />
-            <element signature="e#11920#11921#0" expanded="true" />
-            <element signature="e#11966#12584#0" expanded="true" />
-            <element signature="e#12583#12584#0" expanded="true" />
+            <element signature="e#3468#13158#0" expanded="true" />
+            <element signature="e#6123#6138#0" expanded="true" />
+            <element signature="e#13157#13158#0" expanded="true" />
+            <element signature="e#13852#14246#0" expanded="true" />
+            <element signature="e#14245#14246#0" expanded="true" />
+            <element signature="e#14293#14598#0" expanded="true" />
+            <element signature="e#14597#14598#0" expanded="true" />
+            <element signature="e#14643#18777#0" expanded="true" />
+            <element signature="e#15737#15752#0" expanded="true" />
+            <element signature="e#18776#18777#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2419,7 +2431,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2591,35 +2605,19 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MapActivity.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="124" column="45" selection-start-line="124" selection-start-column="45" selection-end-line="124" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7993#8020#0" expanded="false" />
-            <element signature="e#8051#8078#0" expanded="false" />
-            <element signature="e#8403#8430#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/loginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/DownloadImageTask.java">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-          <folding>
-            <element signature="e#689#690#0" expanded="false" />
-            <element signature="e#737#738#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.5863192">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2631,36 +2629,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/loginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/DownloadImageTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.0">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MainScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3990755">
-          <caret line="168" column="49" selection-start-line="168" selection-start-column="49" selection-end-line="168" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="235" column="77" selection-start-line="235" selection-start-column="77" selection-end-line="235" selection-end-column="77" />
           <folding>
-            <element signature="e#3462#10481#0" expanded="true" />
-            <element signature="e#6117#6132#0" expanded="true" />
-            <element signature="e#10480#10481#0" expanded="true" />
-            <element signature="e#11175#11569#0" expanded="true" />
-            <element signature="e#11568#11569#0" expanded="true" />
-            <element signature="e#11616#11921#0" expanded="true" />
-            <element signature="e#11920#11921#0" expanded="true" />
-            <element signature="e#11966#12584#0" expanded="true" />
-            <element signature="e#12583#12584#0" expanded="true" />
+            <element signature="e#3468#13158#0" expanded="true" />
+            <element signature="e#6123#6138#0" expanded="true" />
+            <element signature="e#13157#13158#0" expanded="true" />
+            <element signature="e#13852#14246#0" expanded="true" />
+            <element signature="e#14245#14246#0" expanded="true" />
+            <element signature="e#14293#14598#0" expanded="true" />
+            <element signature="e#14597#14598#0" expanded="true" />
+            <element signature="e#14643#18777#0" expanded="true" />
+            <element signature="e#15737#15752#0" expanded="true" />
+            <element signature="e#18776#18777#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/UpdatePositionTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+          <folding>
+            <element signature="e#1153#1168#0" expanded="true" />
+            <element signature="e#2010#2011#0" expanded="true" />
+            <element signature="e#2060#2061#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/teapot/lilbigb/MapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6302003">
+          <caret line="235" column="60" selection-start-line="235" selection-start-column="60" selection-end-line="235" selection-end-column="60" />
+          <folding>
+            <element signature="e#8098#8430#0" expanded="true" />
+            <element signature="e#8178#8205#0" expanded="true" />
+            <element signature="e#8236#8263#0" expanded="true" />
+            <element signature="e#8429#8430#0" expanded="true" />
+            <element signature="e#8478#8712#0" expanded="true" />
+            <element signature="e#8588#8615#0" expanded="true" />
+            <element signature="e#8711#8712#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -43,7 +43,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
     private boolean bUpdatePosition = true;
     private LocationRequest mLocationRequest;
     private Marker myMarker;
-
+    private String loggedInName;
     private Bitmap userBitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +99,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
 
         Bitmap userBitmapScaled = Bitmap.createScaledBitmap(userBitmap, 117, 117, false);
         SharedPreferences prefs = getSharedPreferences(loginActivity.PREFS_NAME, MODE_PRIVATE);
-        String loggedInName = prefs.getString("loggedInName", null);
+        loggedInName = prefs.getString("loggedInName", null);
 
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inMutable = true;
@@ -150,13 +150,14 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
 
 
         // setup kontinuerlig position
-        //if(bUpdatePosition){
+        if(bUpdatePosition){
            startLocationUpdates();
-        //}
+        }
 
     }
 
     protected void startLocationUpdates() {
+        if(mGoogleApiClient.isConnected())
         LocationServices.FusedLocationApi   .requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
     }
@@ -170,7 +171,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
 
     @Override
     public void onConnectionSuspended(int i) {
-
+            //bUpdatePosition = false;
     }
 
     @Override
@@ -190,15 +191,16 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
     @Override
     public void onResume() {
         super.onResume();
-        if (mGoogleApiClient.isConnected() && !bUpdatePosition) {
+       /* if(mGoogleApiClient.isConnected() && !bUpdatePosition) {
+            bUpdatePosition = true;
             startLocationUpdates();
-        }
-
-        System.out.println("RESUME!");
+        } */
+        mGoogleApiClient.connect();
     }
 
     protected void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(
+        if(mGoogleApiClient.isConnected())
+            LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
     }
 
@@ -230,7 +232,8 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
         // nærmest en komplet kopi af onconnected
 
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
+        String loc = mLastLocation.getLatitude()+", "+mLastLocation.getLatitude();
+        new UpdatePositionTask().execute(loggedInName, loc);
 
         if(mLastLocation != null){
             myPos = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
