@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +73,8 @@ public class MainScreen extends Activity {
     //public String userName = "";
     private final static int REQUEST_ENABLE_BT = 1; //because maybe some day someone would need it to be !=1 ?!
     private ArrayAdapter<String> mArrayAdapter; //to store the discovered bluetooth devices
+    private ListView listView;
+    IntentFilter bluetoothFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +90,16 @@ public class MainScreen extends Activity {
             System.out.println("BT off, turning on...");
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-
-            /*MAKE DISCOVERABLE for 3600 seconds*/
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 3600); //dirty, hackish approximation to "always"
-            startActivity(discoverableIntent);
-            System.out.println("This device is now discoverable via bluetooth. Be carefull..");
-
-            if(mBluetoothAdapter.startDiscovery()) System.out.println("Bluetooth discovery started...");
         }
+            /*MAKE DISCOVERABLE for 3600 seconds*/
+            //Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            //discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 3600); //dirty, hackish approximation to "always"
+            //startActivity(discoverableIntent);
+            //1System.out.println("This device is now discoverable via bluetooth. Be carefull..");
+
+        registerReceiver(mReceiver, bluetoothFilter); // Don't forget to unregister during onDestroy
+
+        if(mBluetoothAdapter.startDiscovery()) System.out.println("Bluetooth discovery started...");
 
 
 
@@ -431,13 +436,19 @@ public class MainScreen extends Activity {
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+
             // When discovery finds a device
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // Add the name and address to an array adapter to show in a ListView
-                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-                Toast.makeText(MainScreen.this, "Bluetooth Discovered: " +device.getName(), Toast.LENGTH_SHORT).show();
+                //mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Bluetooth Discovered: " +device.getName(), Toast.LENGTH_LONG);
+                toast.show();
+                System.out.println("Bluetooth Discovered: " +device.getName());
+                //listView.setAdapter(new ArrayAdapter<String>(MainScreen.this,android.R.layout.simple_list_item_1 , mArrayAdapter));
+
 
             }
         }
