@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:src="@drawable/eye_icon" />
+        android:src="@drawable/eye_icon_white" />
 
     <TextView
         android:id="@+id/title_text"
@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@id/actionBarLogo"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
+        android:textColor="#FFF"
          />
 
     <ImageView

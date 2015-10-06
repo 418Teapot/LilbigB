@@ -35,16 +35,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MapActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
     static LatLng myPos; // til at holde vores position
-    private GoogleMap map;
+    private static GoogleMap map;
     private GoogleApiClient mGoogleApiClient;
     private boolean bUpdatePosition = true;
     private LocationRequest mLocationRequest;
     private Marker myMarker;
-    private String loggedInName;
+    private static String loggedInName;
     private Bitmap userBitmap;
+
+    public static ArrayList<ArrayList<String>> serverUsers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +69,19 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
                 .getMap();
 
+        serverUsers = new ArrayList<ArrayList<String>>();
+        new GetUsersTask().execute(serverUsers);
+
         // build client metoden . bruges til at indstille og forbinde til google api!
         // se metoden for mere
         buildGoogleApiClient();
         createLocationRequest();
+    }
+
+    public static void buildUserList(){
+        for(ArrayList<String> as : serverUsers) {
+            System.out.println("SERVERUSER: "+as.toString());
+        }
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -232,7 +246,7 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
         // nærmest en komplet kopi af onconnected
 
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        String loc = mLastLocation.getLatitude()+", "+mLastLocation.getLatitude();
+        String loc = mLastLocation.getLatitude()+", "+mLastLocation.getLongitude();
         new UpdatePositionTask().execute(loggedInName, loc);
 
         if(mLastLocation != null){
@@ -240,7 +254,36 @@ public class MapActivity extends Activity implements ConnectionCallbacks, OnConn
             myMarker.setPosition(myPos);
         }
 
+        // ved hvert positionelt update, hent brugere og map dem :)
+
         System.out.println("Location update: " + myPos.toString());
         map.animateCamera(CameraUpdateFactory.newLatLng(myPos), 2000, null);
+    }
+
+    private static ArrayList<Marker> markers = new ArrayList<Marker>();
+
+    public static void addUserMarkers(){
+        for(Marker m : markers){
+            m.remove();
+        }
+        for(ArrayList<String> user : serverUsers){
+            if(!user.get(0).equals(loggedInName)) {
+                LatLng userPos;
+                    String[] position = user.get(1).split(", ");
+                    try {
+                        userPos = new LatLng(Double.parseDouble(position[0]), Double.parseDouble(position[1]));
+                    } catch (NumberFormatException e){
+                        userPos = new LatLng(56.169456, 10.202620);
+                    }
+
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .position(userPos)
+                                //.icon(BitmapDescriptorFactory.fromBitmap(bmp))
+                                //.icon((BitmapDescriptorFactory.fromResource(R.drawable.eye_icon)))
+                        .title(user.get(0)) // brugerens navn
+                        .anchor(0.5f, 1));
+                markers.add(marker);
+            }
+        }
     }
 }

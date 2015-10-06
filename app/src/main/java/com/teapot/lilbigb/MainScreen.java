@@ -1,6 +1,5 @@
 package com.teapot.lilbigb;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +10,8 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,7 +61,7 @@ Indstillinger - der endnu ikke er implementeret
 Log ud - som lukker app'en og fjerner det gemte navn.
  */
 
-public class MainScreen extends Activity {
+public class MainScreen extends AppCompatActivity {
 
     public Bitmap userBitmap;
     //public String userName = "";
@@ -77,7 +78,7 @@ public class MainScreen extends Activity {
         String fbUserID = prefs.getString("FBUserID", null);
         final String userName = loggedInName;
         // setup actionbar
-        ActionBar mActionBar = getActionBar();
+        ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
