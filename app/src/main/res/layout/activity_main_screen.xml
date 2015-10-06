@@ -29,4 +29,19 @@
         android:id="@+id/logoutBtn"
         android:layout_below="@+id/settingsBtn"
         android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_below="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fundne bluetooth enheder:"
+            android:id="@+id/BTheadline"/>
+        <ListView
+            android:layout_below="@+id/BTheadline"
+            android:id="@+id/foundBTItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+
 </RelativeLayout>
