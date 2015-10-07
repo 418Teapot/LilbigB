@@ -1,6 +1,7 @@
 package com.teapot.lilbigb;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -27,6 +28,7 @@ import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.util.Base64;
 import android.view.Gravity;
@@ -97,6 +99,7 @@ public class MainScreen extends AppCompatActivity {
     private static ListView listView;
     private static ArrayList<String> deviceList = new ArrayList<String>();
     IntentFilter bluetoothFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+    IntentFilter bluetoothFilterEnd = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
     private BluetoothAdapter mBluetoothAdapter;
     private WifiManager wifiManager;
     private List<ScanResult> wifiNetworks;
@@ -106,6 +109,7 @@ public class MainScreen extends AppCompatActivity {
     private ArrayAdapter<String> wifiListAdapter;
 
     private static final int RESULT_PICK_CONTACT = 0;
+    private static final int NOTIFICATION_ID = 16;
 
     private Cursor mCursor;
 
@@ -119,6 +123,8 @@ public class MainScreen extends AppCompatActivity {
     private String selectedCtctNumber = null;
 
     private static boolean notifyOnKnownDevice = false;
+
+    private static String loginName;
 
     private SharedPreferences prefs;
     public static final String PREFS_NAME = "lilBIGbroPrefs";
@@ -181,7 +187,7 @@ public class MainScreen extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(loginActivity.PREFS_NAME, MODE_PRIVATE);
         final String loggedInName = prefs.getString("loggedInName", null);
-
+        loginName = loggedInName;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> arg0,
@@ -204,11 +210,11 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = (String) listView.getItemAtPosition(position);
-                if(name.contains(" (")){
+                if (name.contains(" (")) {
                     // vi antar' så at vi har et nummer!
                     System.out.println("SMS TIL DEV!");
 
-                    if(!devNrs.get(position).equals("null")) {
+                    if (!devNrs.get(position).equals("null")) {
                         SmsManager smsManager = SmsManager.getDefault();
                         smsManager.sendTextMessage(devNrs.get(position), null, "Hi from " + loggedInName + " LilBigBro is watching you!", null, null);
                         Toast.makeText(getApplicationContext(), "Sending SMS", Toast.LENGTH_LONG).show();
@@ -222,6 +228,7 @@ public class MainScreen extends AppCompatActivity {
 
 
         registerReceiver(mReceiver, bluetoothFilter); // Don't forget to unregister during onDestroy
+        registerReceiver(mReceiver, bluetoothFilterEnd);
 
         if(mBluetoothAdapter.startDiscovery()) System.out.println("Bluetooth discovery started...");
 
@@ -560,13 +567,14 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mReceiver);
+        //unregisterReceiver(mReceiver);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(mReceiver, bluetoothFilter);
+        registerReceiver(mReceiver, bluetoothFilterEnd);
     }
 
 
@@ -578,6 +586,7 @@ public class MainScreen extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 System.out.println("BT ENABLED!");
                 registerReceiver(mReceiver, bluetoothFilter); // Don't forget to unregister during onDestroy
+                registerReceiver(mReceiver, bluetoothFilterEnd);
 
                 if(mBluetoothAdapter.startDiscovery()) System.out.println("Bluetooth discovery started...");
             } else {
@@ -633,6 +642,8 @@ public class MainScreen extends AppCompatActivity {
                             paramsReg.add(new BasicNameValuePair("contactNumber", contactNumber));
                             paramsReg.add(new BasicNameValuePair("devID", devId));
                             paramsReg.add(new BasicNameValuePair("devName", devName));
+                            paramsReg.add(new BasicNameValuePair("userName", loginName));
+
 
                             OutputStream os = conn.getOutputStream();
                             BufferedWriter writer = new BufferedWriter(
@@ -730,11 +741,25 @@ public class MainScreen extends AppCompatActivity {
         mArrayAdapter.notifyDataSetChanged();
 
         // det her sker kun hvis vi kender device
-        if(notifyOnKnownDevice) {
+
             Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
-            v.vibrate((long) 1000);
-        }
+            v.vibrate(500);
+
+            // crazy hack for at vise at vi kan lave en alarm
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(ctx)
+                            .setSmallIcon(R.drawable.eye_icon_white)
+                            .setContentTitle("LilBigBro")
+                            .setContentText("Someone we know came close to us: "+deviceList.get(pos));
+// Creates an explicit intent for an Activity in your app
+            NotificationManager mNotificationManager =
+                    (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+
+
 
     }
 
@@ -763,8 +788,8 @@ public class MainScreen extends AppCompatActivity {
                 devNrs.add("null");
                 btAddr.add(device.getAddress());
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Bluetooth Discovered: " +device.getName() + "Adr: "+device.getAddress(), Toast.LENGTH_LONG);
-                toast.show();
+                //Toast toast = Toast.makeText(getApplicationContext(), "Bluetooth Discovered: " +device.getName() + "Adr: "+device.getAddress(), Toast.LENGTH_LONG);
+                //toast.show();
                 System.out.println("Bluetooth Discovered: " + device.getName());
 
                 new GetDevicesTask().execute(deviceList);
@@ -775,9 +800,19 @@ public class MainScreen extends AppCompatActivity {
 
 
 
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
+            {
+                System.out.println("Entered the Finished ");
+                // dirty hack clear all devices
+                deviceList = new ArrayList<String>();
+                mBluetoothAdapter.startDiscovery();
             }
         }
     };
+
+    public static String getLoggedInName(){
+        return loginName;
+    }
 
 
     // ingen grund til at fjerne nedenstående - det er ikke utænkeligt at vi vil bruge dropdown settings menuen senere

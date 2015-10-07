@@ -39,7 +39,7 @@ public class GetDevicesTask extends AsyncTask<ArrayList<String>, String, ArrayLi
         ArrayList<String> deviceList  = params[0];
 
         try {
-            URL getUsers = new URL("http://46.101.251.99/lilbigbro/getBTdev");
+            URL getUsers = new URL("http://46.101.251.99/lilbigbro/getBTdev?user="+MainScreen.getLoggedInName());
             HttpURLConnection conn = (HttpURLConnection) getUsers.openConnection();
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
