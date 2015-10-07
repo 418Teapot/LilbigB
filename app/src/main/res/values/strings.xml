@@ -9,4 +9,5 @@
     <string name="title_activity_main_screen">lilBIGbro</string>
     <string name="title_activity_map">Kort</string>
     <string name="facebook_app_id">963020807090306</string>
+    <string name="title_activity_notifications">Påmindelser</string>
 </resources>

@@ -12,14 +12,14 @@
         android:text="Kort"
         android:id="@+id/kortBtn"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Indstillinger"
+        android:text="Påmindelser"
         android:id="@+id/settingsBtn"
-        android:layout_below="@+id/kortBtn"
+        android:layout_alignTop="@+id/kortBtn"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -27,21 +27,35 @@
         android:layout_height="wrap_content"
         android:text="Log ud"
         android:id="@+id/logoutBtn"
-        android:layout_below="@+id/settingsBtn"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_below="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Fundne bluetooth enheder:"
             android:id="@+id/BTheadline"/>
         <ListView
             android:layout_below="@+id/BTheadline"
             android:id="@+id/foundBTItems"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             />
+
+    <TextView
+        android:layout_below="@+id/foundBTItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fundne WIFI Netværk:"
+        android:id="@+id/WLheadLine"/>
+    <ListView
+        android:layout_below="@+id/WLheadLine"
+        android:id="@+id/foundWlan"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        />
 
 
 </RelativeLayout>

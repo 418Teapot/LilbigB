@@ -130,30 +130,6 @@ public class loginActivity extends Activity {
         } else {
             // håndter login!
 
-            // vi finder vores "views" (knapper og tekstfelter - igen wow naming android :) )
-            Button noFaceloginButton = (Button) findViewById(R.id.loginButton);
-            final EditText nameText = (EditText) findViewById(R.id.navnText);
-
-            // hvis elementerne vi skal bruge findes!
-            if(noFaceloginButton  != null && nameText != null){
-                noFaceloginButton .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        dispatchTakePictureIntent();
-/*
-                        // vi gemmer vores login navn i shared prefs!
-                        prefsEditor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-                        prefsEditor.putString("loggedInName", nameText.getText().toString());
-                        prefsEditor.commit();
-
-                        // same as above ;)
-                        Intent mainIntent = new Intent(getApplicationContext(), MainScreen.class);
-                        startActivity(mainIntent);
-                        finish();*/
-                    }
-                });
-            }
 
         }
 
